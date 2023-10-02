@@ -1,3 +1,5 @@
+import os  # Import the 'os' module for screen clearing.
+
 # Define a dictionary called 'rooms' that represents different rooms in the game.
 rooms = {
     'start': {
@@ -54,8 +56,16 @@ def get_action(room):
 # Initialize the game by setting the 'current_room' to the 'start' room.
 current_room = rooms['start']
 
+def clear_screen():
+    # Clear the terminal screen based on the OS (for Windows and Unix-like systems).
+    if os.name == 'posix':
+        os.system('clear')
+    else:
+        os.system('cls')
+
 # Continue the game loop until the 'end' key is found in the current room (indicating the end of the game).
 while 'end' not in current_room:
+    clear_screen()  # Clear the terminal screen.
     show_room(current_room)  # Display the current room's description and available exits.
     next_room = get_action(current_room)  # Get the next room based on the player's input.
     current_room = rooms[next_room]  # Update the 'current_room' to the next room.
